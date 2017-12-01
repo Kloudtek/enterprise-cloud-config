@@ -1,0 +1,7 @@
+foo: bar
+agh:
+  bla: gah
+froo:
+  gogo:
+  - froo~gogo~0/1
+  - froo~gogo~1/1

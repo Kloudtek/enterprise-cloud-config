@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean class="com.kloudtek.enterprisecloudconfig.CloudConfigPropertyPlaceholderConfigurer">
+        <property name="url" value="http://localhost:12532"/>
+        <property name="application" value="test-client"/>
+        <property name="profile" value="prof"/>
+    </bean>
+    <bean class="com.kloudtek.enterprisecloudconfig.PlaceholderTest">
+        <property name="foo" value="${foo}"/>
+        <property name="dog" value="${dog}"/>
+        <property name="bird" value="${bird}"/>
+    </bean>
+</beans>

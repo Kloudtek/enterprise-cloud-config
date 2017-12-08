@@ -11,6 +11,5 @@
     <bean class="com.kloudtek.enterprisecloudconfig.PlaceholderTest">
         <property name="foo" value="${foo}"/>
         <property name="dog" value="${dog}"/>
-        <property name="bird" value="${bird}"/>
     </bean>
 </beans>

@@ -1,35 +1,50 @@
 package com.kloudtek.enterprisecloudconfig;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Properties;
 
-public class CloudConfigPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
+public class CloudConfigPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer implements EnvironmentAware {
     private String application;
-    private String profile;
     private String label;
     private String url;
+    private String profiles;
     private Properties properties;
+    private Environment environment;
 
     public CloudConfigPropertyPlaceholderConfigurer() {
+        setSystemPropertiesMode(SYSTEM_PROPERTIES_MODE_OVERRIDE);
     }
 
-    public CloudConfigPropertyPlaceholderConfigurer(String application, String profile, String url) {
-        this( application, profile, null, url);
+    public CloudConfigPropertyPlaceholderConfigurer(String application, String url) {
+        this( application, null, url);
     }
 
-    public CloudConfigPropertyPlaceholderConfigurer(String application, String profile, String label, String url) {
+    public CloudConfigPropertyPlaceholderConfigurer(String application, String label, String url) {
         this.application = application;
-        this.profile = profile;
         this.label = label;
         this.url = url;
+        setSystemPropertiesMode(SYSTEM_PROPERTIES_MODE_OVERRIDE);
     }
 
-    private void load() throws IOException {
-        CloudConfigClient ccClient = new CloudConfigClient(url);
-        properties = ccClient.getProperties(application, profile, label);
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    protected synchronized void load() throws IOException {
+        if( properties == null ) {
+            if( profiles == null ) {
+                profiles = String.join(",",environment.getActiveProfiles());
+            }
+            CloudConfigClient ccClient = new CloudConfigClient(url);
+            properties = ccClient.getProperties(application, profiles, label);
+        }
     }
 
     @Override
@@ -64,19 +79,19 @@ public class CloudConfigPropertyPlaceholderConfigurer extends PropertyPlaceholde
         this.application = application;
     }
 
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
-    }
-
     public String getLabel() {
         return label;
     }
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(String profiles) {
+        this.profiles = profiles;
     }
 }

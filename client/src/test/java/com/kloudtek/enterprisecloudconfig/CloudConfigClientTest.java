@@ -38,6 +38,7 @@ public class CloudConfigClientTest {
 
     @Test
     public void testPropertyPlaceholder() {
+        System.setProperty("spring.profiles.active","native,prof");
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:testCtx.xml");
         PlaceholderTest placeholderTest = ctx.getBean(PlaceholderTest.class);
         Assert.assertEquals("cat",placeholderTest.getDog());

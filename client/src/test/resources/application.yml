@@ -1,5 +1,5 @@
 spring:
   profiles:
-    active: native
+    active: native,prof
 server:
   port: 12532

@@ -57,10 +57,8 @@ public class CloudConfigClient implements Closeable {
                 convertToProperties(arrKey,arrayObj,properties);
                 nb++;
             }
-        } else if( value instanceof String ) {
-            properties.put(key,value);
-        } else {
-            throw new IllegalArgumentException("Unexpected json value : "+value.getClass()+" : "+value);
+        } else if( value != null ){
+            properties.put(key,value.toString());
         }
     }
 

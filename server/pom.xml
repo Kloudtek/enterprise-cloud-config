@@ -10,6 +10,7 @@
 
 	<name>Enterprise Cloud Config Server</name>
 	<description>Enterprise Cloud Config expands on spring-cloud-config to provide additional capabilities as well as non-spring-boot clients</description>
+	<url>https://github.com/Kloudtek/enterprise-cloud-config</url>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

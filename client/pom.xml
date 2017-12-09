@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <name>Enterprise Cloud Config Client</name>
     <description>Enterprise Cloud Config expands on spring-cloud-config to provide additional capabilities as well as non-spring-boot clients</description>
+    <url>https://github.com/Kloudtek/enterprise-cloud-config</url>
 
     <developers>
         <developer>

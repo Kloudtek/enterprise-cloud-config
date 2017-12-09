@@ -14,6 +14,7 @@ public class CloudConfigPropertyPlaceholderConfigurer extends PropertyPlaceholde
     private String label;
     private String url;
     private String profiles;
+    private String defaultProfile = "default";
     private Properties properties;
     private Environment environment;
 
@@ -40,7 +41,11 @@ public class CloudConfigPropertyPlaceholderConfigurer extends PropertyPlaceholde
     protected synchronized void load() throws IOException {
         if( properties == null ) {
             if( profiles == null ) {
-                profiles = String.join(",",environment.getActiveProfiles());
+                if( environment.getActiveProfiles().length > 0 ) {
+                    profiles = String.join(",",environment.getActiveProfiles());
+                } else {
+                    profiles = defaultProfile;
+                }
             }
             CloudConfigClient ccClient = new CloudConfigClient(url);
             properties = ccClient.getProperties(application, profiles, label);
@@ -93,5 +98,13 @@ public class CloudConfigPropertyPlaceholderConfigurer extends PropertyPlaceholde
 
     public void setProfiles(String profiles) {
         this.profiles = profiles;
+    }
+
+    public String getDefaultProfile() {
+        return defaultProfile;
+    }
+
+    public void setDefaultProfile(String defaultProfile) {
+        this.defaultProfile = defaultProfile;
     }
 }

@@ -1,3 +1,3 @@
 @Library('kloudtek-pipelinelib') _
 
-mavenRelease([dirs: ['client','server']])
+mavenRelease dirs: ['client','server']

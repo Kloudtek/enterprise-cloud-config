@@ -26,10 +26,11 @@ public class CloudConfigClientTest {
     public void testClientGetProperties() throws IOException {
         CloudConfigClient client = new CloudConfigClient("http://localhost:12532");
         Properties properties = client.getProperties("test-client", "prof", null);
-        Assert.assertEquals(5,properties.size());
+        Assert.assertEquals(6,properties.size());
         Assert.assertEquals("cat",properties.getProperty("dog"));
         Assert.assertEquals("bar",properties.getProperty("foo"));
         Assert.assertEquals("gah",properties.getProperty("agh.bla"));
+        Assert.assertEquals("YYYY",properties.getProperty("qwer"));
         Assert.assertNotNull(properties.getProperty("froo.gogo[0]"));
         boolean naturalOrder = properties.getProperty("froo.gogo[0]").equals(ARRVAL1) ;
         Assert.assertEquals(naturalOrder ? ARRVAL1: ARRVAL2, properties.getProperty("froo.gogo[0]"));
